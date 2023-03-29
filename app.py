@@ -54,3 +54,31 @@ def add():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+# Define a list to store the data from the form
+data_list = []
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        # Get the data from the form
+        fname = request.form["name"]
+        flavor = request.form["flavor"]
+        read = request.form["read"]
+
+        # Create a dictionary to store the data
+        data_dict = {
+            'name': fname,
+            'flavor': flavor,
+            'read': read
+        }
+
+        # Append the dictionary to the list
+        data_list.append(data_dict)
+
+        # Return a message to indicate that the data was successfully added
+        return 'Data added to list!'
+    else:
+        return render_template('index.html')
