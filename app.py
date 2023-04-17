@@ -57,38 +57,3 @@ def add():
 if __name__ == "__main__":
     app.run(debug=True)
 
-# Handling error 404 and displaying relevant web page
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template("404.html"), 404
-
-# Handling error 500 and displaying relevant web page
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template("500.html"), 500
-
-# Define a list to store the data from the form
-data_list = []
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        # Get the data from the form
-        fname = request.form["name"]
-        flavor = request.form["flavor"]
-        read = request.form["read"]
-
-        # Create a dictionary to store the data
-        data_dict = {
-            'name': fname,
-            'flavor': flavor,
-            'read': read
-        }
-
-        # Append the dictionary to the list
-        data_list.append(data_dict)
-
-        # Return a message to indicate that the data was successfully added
-        return 'Data added to list!'
-    else:
-        return render_template('index.html')
